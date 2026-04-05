@@ -1,282 +1,1344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Flujo de Caja — Control financiero para tu negocio · $9 USD</title>
+<meta name="description" content="La plantilla de flujo de caja que todo dueño de negocio necesita. Controla tus entradas, salidas y saldo real en tiempo real. Excel y Google Sheets. Solo $9 USD.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --v:#1A7A5E;--vd:#0D4F3C;--vm:#4BC99A;--vcl:#D4EDE5;
+  --n:#E8622A;--ncl:#FDF0E8;
+  --k:#1C1C1A;--kg:#F7F4EF;--kw:#FFFFFF;
+  --g1:#6B6B67;--g2:#9C9C98;--g3:#E8E5DF;--g4:#F2F0EB;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --r8:8px;--r12:12px;--r16:16px;--r24:24px;
+  --sh:0 4px 24px rgba(0,0,0,.08);
+  --sha:0 8px 48px rgba(0,0,0,.14);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--kg);color:var(--k);line-height:1.6;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
 
-Tu
-Flujo de Caja
+/* ─── NAVBAR ─── */
+.navbar{
+  position:absolute;top:0;left:0;right:0;z-index:100;
+  padding:0 2rem;height:72px;
+  display:flex;align-items:center;
+}
+.navbar-inner{
+  max-width:1100px;margin:0 auto;width:100%;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.navbar-logo{display:flex;align-items:center;gap:10px;cursor:default}
+.navbar-logomark{
+  width:38px;height:38px;background:var(--v);
+  border-radius:8px;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.navbar-brand{line-height:1.15}
+.navbar-brand-tu{font-family:var(--sans);font-size:11px;font-weight:400;color:rgba(255,255,255,.45);letter-spacing:.04em}
+.navbar-brand-main{font-family:var(--serif);font-size:20px;color:#fff}
+.navbar-brand-main span{color:var(--vm)}
+.navbar-cta-top{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.8);
+  font-size:13px;font-weight:500;
+  padding:9px 18px;border-radius:100px;
+  cursor:pointer;transition:background .2s,color .2s;
+}
+.navbar-cta-top:hover{background:rgba(255,255,255,.14);color:#fff}
+@media(max-width:600px){.navbar-cta-top{display:none}}
 
-Comprar — $9 USD
-Tu negocio, bajo control.
-Pago único · Descarga inmediata
+/* ─── STICKY BAR ─── */
+.sticky-bar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:var(--k);
+  transform:translateY(-100%);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.sticky-bar.visible{transform:translateY(0)}
+.sticky-inner{
+  max-width:1100px;margin:0 auto;padding:0 2rem;
+  height:60px;display:flex;align-items:center;justify-content:space-between;gap:1rem;
+}
+.sticky-text{font-family:var(--serif);font-size:18px;color:#fff}
+.sticky-text em{color:var(--vm);font-style:italic}
+.sticky-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--n);color:#fff;
+  font-size:14px;font-weight:500;
+  padding:10px 22px;border-radius:var(--r8);
+  white-space:nowrap;cursor:pointer;border:none;
+  transition:transform .15s,opacity .15s;
+  flex-shrink:0;
+}
+.sticky-cta:hover{transform:translateY(-1px);opacity:.93}
+.sticky-price{font-size:12px;color:rgba(255,255,255,.4)}
 
-Comprar — $9 USD
+/* ─── HERO ─── */
+.hero{
+  background:var(--k);
+  padding:152px 2rem 100px;
+  position:relative;overflow:hidden;
+  min-height:100vh;
+  display:flex;align-items:center;
+}
+.hero-bg{
+  position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 55% 45% at 15% 85%,rgba(26,122,94,.18) 0%,transparent 60%),
+    radial-gradient(ellipse 40% 35% at 85% 20%,rgba(75,201,154,.08) 0%,transparent 55%);
+}
+.hero-grid-lines{
+  position:absolute;inset:0;pointer-events:none;opacity:.04;
+  background-image:linear-gradient(rgba(255,255,255,.6) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.6) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-inner{
+  max-width:1100px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 420px;
+  gap:4rem;align-items:center;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(75,201,154,.1);
+  border:1px solid rgba(75,201,154,.2);
+  color:var(--vm);
+  font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  padding:6px 16px;border-radius:100px;
+  margin-bottom:1.75rem;
+  animation:fadeUp .8s .1s both;
+}
+.hero-eyebrow span{
+  width:6px;height:6px;border-radius:50%;background:var(--vm);
+  animation:pulse 2s infinite;
+}
+.hero h1{
+  font-family:var(--serif);
+  font-size:clamp(38px,5.5vw,68px);
+  color:#fff;line-height:1.08;
+  margin-bottom:1.5rem;
+  animation:fadeUp .8s .2s both;
+}
+.hero h1 em{color:var(--vm);font-style:italic}
+.hero-sub{
+  font-size:18px;color:rgba(255,255,255,.6);
+  line-height:1.7;max-width:500px;
+  margin-bottom:2.5rem;
+  animation:fadeUp .8s .3s both;
+}
+.hero-actions{
+  display:flex;flex-direction:column;gap:.875rem;
+  animation:fadeUp .8s .4s both;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  background:var(--n);color:#fff;
+  font-size:17px;font-weight:500;
+  padding:18px 36px;border-radius:var(--r12);
+  cursor:pointer;border:none;width:fit-content;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 4px 32px rgba(232,98,42,.35);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 48px rgba(232,98,42,.45)}
+.btn-primary:active{transform:translateY(0)}
+.btn-primary svg{flex-shrink:0}
+.hero-guarantee{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;color:rgba(255,255,255,.4);
+}
+.hero-guarantee svg{flex-shrink:0;opacity:.5}
 
+/* HERO CARD */
+.hero-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r24);
+  padding:1.75rem;
+  backdrop-filter:blur(12px);
+  animation:fadeUp .8s .5s both;
+}
+.hcard-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.25rem;
+}
+.hcard-title{font-size:13px;color:rgba(255,255,255,.5);font-weight:400}
+.hcard-badge{
+  background:rgba(75,201,154,.15);color:var(--vm);
+  font-size:11px;font-weight:500;padding:4px 10px;
+  border-radius:100px;border:1px solid rgba(75,201,154,.2);
+}
+.hcard-big{
+  font-family:var(--serif);font-size:42px;color:#fff;
+  margin-bottom:.25rem;
+}
+.hcard-big span{color:var(--vm)}
+.hcard-sub{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:1.5rem}
+.hcard-bars{display:flex;align-items:flex-end;gap:6px;height:64px;margin-bottom:1.5rem}
+.hbar{border-radius:4px 4px 0 0;transition:height .4s ease;position:relative;flex:1}
+.hbar-label{
+  position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);
+  font-size:9px;color:rgba(255,255,255,.3);white-space:nowrap;
+}
+.hcard-stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hstat{background:rgba(255,255,255,.04);border-radius:var(--r8);padding:12px 14px;border:1px solid rgba(255,255,255,.06)}
+.hstat-label{font-size:11px;color:rgba(255,255,255,.35);margin-bottom:4px}
+.hstat-value{font-size:20px;font-weight:500;color:#fff}
+.hstat-value.pos{color:var(--vm)}
+.hstat-value.neg{color:#FF6B6B}
 
+/* ─── SOCIAL PROOF BAR ─── */
+.proof-bar{
+  background:var(--kw);
+  padding:1.25rem 2rem;
+  border-bottom:1px solid var(--g3);
+}
+.proof-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;align-items:center;justify-content:center;
+  gap:3rem;flex-wrap:wrap;
+}
+.proof-item{display:flex;align-items:center;gap:.625rem;font-size:14px;color:var(--g1)}
+.proof-item strong{color:var(--k);font-weight:500}
+.proof-icon{color:var(--v)}
 
-CONTROL FINANCIERO PARA TU NEGOCIO
-Deja de adivinar cuánto tiene tu negocio.
-La plantilla de flujo de caja que controla tus entradas, salidas y saldo real — sin ser contador, sin software caro, sin complicaciones.
+/* ─── PROBLEM ─── */
+.problem{padding:100px 2rem;background:var(--kw)}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-eyebrow{
+  display:inline-block;
+  font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--v);background:var(--vcl);
+  padding:5px 14px;border-radius:100px;
+  margin-bottom:1.25rem;
+}
+.section-h{
+  font-family:var(--serif);
+  font-size:clamp(30px,4vw,48px);
+  color:var(--k);line-height:1.15;
+  margin-bottom:1rem;
+}
+.section-h em{color:var(--v);font-style:italic}
+.section-sub{font-size:17px;color:var(--g1);max-width:600px;line-height:1.7;margin-bottom:3rem}
 
-Quiero mi plantilla — $9 USD
+.problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.problem-card{
+  background:var(--g4);border-radius:var(--r16);
+  padding:2rem 1.75rem;border:1px solid var(--g3);
+  transition:transform .25s,box-shadow .25s;
+  position:relative;overflow:hidden;
+}
+.problem-card:hover{transform:translateY(-4px);box-shadow:var(--sh)}
+.problem-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--g3);border-radius:3px 3px 0 0;
+}
+.pcard-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:rgba(232,98,42,.1);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;color:var(--n);
+}
+.pcard-h{font-size:18px;font-weight:500;color:var(--k);margin-bottom:.625rem}
+.pcard-p{font-size:14px;color:var(--g1);line-height:1.7}
+.pcard-stat{
+  margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--g3);
+  font-family:var(--serif);font-size:28px;color:var(--n);
+}
+.pcard-stat span{font-family:var(--sans);font-size:12px;color:var(--g2);display:block;font-weight:400;margin-top:2px}
 
-Pago único · Sin suscripción · Excel y Google Sheets incluidos
+/* ─── SOLUTION ─── */
+.solution{padding:100px 2rem;background:var(--kg)}
+.solution-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.solution-features{display:flex;flex-direction:column;gap:1.25rem;margin-top:2rem}
+.sfeat{
+  display:flex;align-items:flex-start;gap:1rem;
+  padding:1.25rem;background:var(--kw);
+  border-radius:var(--r12);border:1px solid var(--g3);
+  transition:border-color .2s,transform .2s;
+}
+.sfeat:hover{border-color:var(--vcl);transform:translateX(4px)}
+.sfeat-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--vcl);display:flex;align-items:center;
+  justify-content:center;flex-shrink:0;color:var(--v);
+}
+.sfeat-h{font-size:15px;font-weight:500;color:var(--k);margin-bottom:3px}
+.sfeat-p{font-size:13px;color:var(--g1);line-height:1.6}
 
-4.9/5 calificación promedio
+/* Dashboard Mock */
+.dashboard-mock{
+  background:var(--k);border-radius:var(--r24);
+  padding:1.5rem;
+  box-shadow:0 32px 80px rgba(0,0,0,.25);
+  position:relative;
+}
+.mock-topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:1.25rem;
+}
+.mock-title{font-size:14px;color:rgba(255,255,255,.5)}
+.mock-year{font-size:13px;color:var(--vm);background:rgba(75,201,154,.1);padding:4px 12px;border-radius:100px;border:1px solid rgba(75,201,154,.15)}
+.mock-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:1.25rem}
+.mcard{background:rgba(255,255,255,.04);border-radius:12px;padding:14px 16px;border:1px solid rgba(255,255,255,.06)}
+.mcard-l{font-size:11px;color:rgba(255,255,255,.35);margin-bottom:6px}
+.mcard-v{font-size:22px;font-weight:500}
+.mcard-v.g{color:var(--vm)}
+.mcard-v.r{color:#FF6B6B}
+.mcard-v.w{color:#fff}
+.mock-chart{height:90px;display:flex;align-items:flex-end;gap:4px;margin-bottom:1.25rem;padding:0 4px}
+.mcbar{border-radius:3px 3px 0 0;flex:1;min-width:0}
+.mcbar.in{background:rgba(75,201,154,.35)}
+.mcbar.out{background:rgba(255,107,107,.25)}
+.mock-table{background:rgba(255,255,255,.03);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.06)}
+.mtrow{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 14px;font-size:12px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.mtrow:last-child{border-bottom:none}
+.mtrow-cat{color:rgba(255,255,255,.5)}
+.mtrow-val{font-weight:500}
+.mtrow-val.pos{color:var(--vm)}
+.mtrow-val.neg{color:#FF6B6B}
+.mock-badge{
+  position:absolute;top:-14px;right:24px;
+  background:var(--n);color:#fff;
+  font-size:12px;font-weight:500;
+  padding:6px 16px;border-radius:100px;
+  box-shadow:0 4px 16px rgba(232,98,42,.4);
+}
 
-Compatible con Excel + Google Sheets
+/* ─── STORY ─── */
+.story{
+  padding:100px 2rem;
+  background:var(--k);
+  position:relative;overflow:hidden;
+}
+.story::before{
+  content:'';position:absolute;
+  top:-200px;left:-200px;
+  width:600px;height:600px;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(26,122,94,.15) 0%,transparent 70%);
+  pointer-events:none;
+}
+.story-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center}
+.story-quote{
+  font-family:var(--serif);font-size:clamp(22px,3vw,34px);
+  color:#fff;line-height:1.35;margin-bottom:2rem;
+}
+.story-quote em{color:var(--vm);font-style:italic}
+.story-author{display:flex;align-items:center;gap:1rem}
+.story-avatar{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--v);display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:20px;color:#fff;flex-shrink:0;
+}
+.story-author-name{font-size:15px;font-weight:500;color:#fff}
+.story-author-role{font-size:13px;color:rgba(255,255,255,.4)}
+.story-cards{display:flex;flex-direction:column;gap:1rem}
+.story-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r16);padding:1.5rem;
+  transition:border-color .2s;
+}
+.story-card:hover{border-color:rgba(75,201,154,.25)}
+.story-card-icon{font-size:24px;margin-bottom:.75rem}
+.story-card-h{font-size:15px;font-weight:500;color:#fff;margin-bottom:.375rem}
+.story-card-p{font-size:13px;color:rgba(255,255,255,.5);line-height:1.65}
 
-Descarga inmediata · sin esperas
+/* ─── SHEETS PREVIEW ─── */
+.sheets{padding:100px 2rem;background:var(--kw)}
+.sheets-tabs{
+  display:flex;gap:8px;margin-bottom:2rem;flex-wrap:wrap;
+}
+.stab{
+  padding:8px 20px;border-radius:100px;
+  font-size:13px;font-weight:500;cursor:pointer;
+  border:1px solid var(--g3);background:transparent;
+  color:var(--g1);transition:all .2s;
+}
+.stab.active{background:var(--v);color:#fff;border-color:var(--v)}
+.stab:hover:not(.active){border-color:var(--v);color:var(--v)}
+.sheet-panel{display:none}
+.sheet-panel.active{display:block}
+.sheet-mockup{
+  background:var(--k);border-radius:var(--r16);
+  overflow:hidden;border:1px solid rgba(255,255,255,.08);
+  box-shadow:var(--sha);
+}
+.sheet-toolbar{
+  background:#2A2A28;padding:10px 16px;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.sheet-dots{display:flex;gap:6px}
+.sdot{width:10px;height:10px;border-radius:50%}
+.sheet-name{font-size:12px;color:rgba(255,255,255,.4);margin-left:4px}
+.sheet-body{padding:1.5rem;overflow-x:auto}
+.sheet-table{width:100%;border-collapse:collapse;font-size:12px}
+.sheet-table th{
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);
+  padding:8px 12px;text-align:left;font-weight:500;
+  border-bottom:1px solid rgba(255,255,255,.08);
+  white-space:nowrap;
+}
+.sheet-table td{
+  padding:9px 12px;color:rgba(255,255,255,.8);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  white-space:nowrap;
+}
+.sheet-table tr:hover td{background:rgba(255,255,255,.03)}
+.td-in{color:#4BC99A!important;font-weight:500}
+.td-out{color:#FF8080!important;font-weight:500}
+.td-badge{
+  display:inline-block;font-size:10px;padding:2px 8px;border-radius:100px;font-weight:500;
+}
+.td-badge.done{background:rgba(75,201,154,.12);color:#4BC99A}
+.td-badge.pend{background:rgba(255,200,80,.1);color:#FFCC44}
 
-Lista para usar en menos de 10 minutos
-EL PROBLEMA REAL
-Los negocios no quiebran por falta de ventas. Quiebran por falta de control.
-La mayoría de los dueños de negocio venden bien, trabajan duro y aun así terminan el mes sin saber exactamente cuánto tienen. Eso tiene un nombre: falta de flujo de caja.
+/* DASHBOARD PANEL */
+.dash-panel{padding:1.5rem}
+.dash-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem}
+.dkpi{background:rgba(255,255,255,.04);border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.06)}
+.dkpi-l{font-size:10px;color:rgba(255,255,255,.4);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
+.dkpi-v{font-size:20px;font-weight:500}
+.dash-chart{
+  background:rgba(255,255,255,.03);border-radius:12px;padding:1.25rem;
+  border:1px solid rgba(255,255,255,.06);margin-bottom:1rem;
+}
+.dash-chart-title{font-size:12px;color:rgba(255,255,255,.4);margin-bottom:1rem}
+.dash-bars{display:flex;align-items:flex-end;gap:8px;height:80px}
+.dbar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+.dbar{width:100%;border-radius:3px 3px 0 0;transition:height .5s ease}
+.dbar-lbl{font-size:9px;color:rgba(255,255,255,.3)}
 
-No sabes cuánto tienes ahora mismo
-Tienes que llamar al banco, revisar el cajón, contar tickets. El saldo real de tu negocio es un misterio hasta que ya es tarde.
-73%
-de los dueños de pyme no conocen su saldo real al día de hoy
+/* ─── INCLUDES ─── */
+.includes{padding:100px 2rem;background:var(--kg)}
+.includes-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+.inc-card{
+  background:var(--kw);border-radius:var(--r16);padding:1.75rem;
+  border:1px solid var(--g3);
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.inc-card:hover{transform:translateY(-4px);box-shadow:var(--sh);border-color:var(--vcl)}
+.inc-icon{
+  width:48px;height:48px;border-radius:12px;
+  background:var(--vcl);color:var(--v);
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:1.25rem;
+}
+.inc-h{font-size:16px;font-weight:500;color:var(--k);margin-bottom:.5rem}
+.inc-p{font-size:13px;color:var(--g1);line-height:1.65}
 
-Vendiste bien pero no sobra nada
-Las ventas están bien pero el dinero desaparece. No sabes si es el proveedor, los impuestos, el personal o simplemente que gastas más de lo que entra.
-8 de 10
-pymes cierran antes de los 5 años por problemas de liquidez
+/* ─── FOR WHO ─── */
+.forwho{padding:100px 2rem;background:var(--kw)}
+.forwho-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+.fw-card{
+  border-radius:var(--r16);padding:2rem 1.75rem;
+  border:1px solid var(--g3);background:var(--g4);
+  position:relative;overflow:hidden;
+  transition:transform .25s;
+}
+.fw-card:hover{transform:translateY(-3px)}
+.fw-card::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--v),var(--vm));
+}
+.fw-emoji{font-size:36px;margin-bottom:1rem;display:block}
+.fw-h{font-size:18px;font-weight:500;color:var(--k);margin-bottom:.625rem}
+.fw-p{font-size:13px;color:var(--g1);line-height:1.7}
 
-Tomas decisiones a ciegas
-¿Puedo contratar a alguien? ¿Puedo comprar más inventario? Sin datos, las respuestas son solo intuición. Y la intuición quiebra negocios.
-$0
-es lo que cuesta saber exactamente cómo va tu negocio financieramente
-LA SOLUCIÓN
-Tu Flujo de Caja. Todo claro, siempre.
-Una plantilla diseñada por dueños de negocio para dueños de negocio. Sin tecnicismos. Sin curva de aprendizaje. Lista en 10 minutos.
+/* ─── TESTIMONIALS ─── */
+.testimonials{padding:100px 2rem;background:var(--k);position:relative;overflow:hidden}
+.testimonials::after{
+  content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;
+  border-radius:50%;background:radial-gradient(circle,rgba(75,201,154,.08) 0%,transparent 70%);
+}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:3rem}
+.testi-card{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--r16);padding:1.75rem;
+  transition:border-color .25s,transform .25s;
+}
+.testi-card:hover{border-color:rgba(75,201,154,.25);transform:translateY(-3px)}
+.testi-stars{color:#FFD166;font-size:14px;letter-spacing:2px;margin-bottom:1rem}
+.testi-text{font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;font-style:italic;margin-bottom:1.25rem}
+.testi-author{display:flex;align-items:center;gap:.75rem}
+.testi-avatar{
+  width:38px;height:38px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:15px;color:#fff;flex-shrink:0;
+}
+.testi-name{font-size:14px;font-weight:500;color:#fff}
+.testi-biz{font-size:12px;color:rgba(255,255,255,.35)}
 
-Dashboard en tiempo real
-Ve tu saldo actual, ingresos y gastos del mes de un vistazo. Sin fórmulas manuales — todo automático.
+/* ─── FAQ ─── */
+.faq{padding:100px 2rem;background:var(--kg)}
+.faq-list{max-width:720px;margin:3rem auto 0;display:flex;flex-direction:column;gap:10px}
+.faq-item{background:var(--kw);border-radius:var(--r12);border:1px solid var(--g3);overflow:hidden}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 1.5rem;cursor:pointer;
+  font-size:16px;font-weight:500;color:var(--k);
+  transition:background .2s;gap:1rem;
+  list-style:none;
+}
+.faq-q:hover{background:var(--g4)}
+.faq-q::marker{display:none}
+.faq-icon{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--vcl);color:var(--v);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:18px;font-weight:300;
+  transition:transform .3s;
+}
+details[open] .faq-icon{transform:rotate(45deg);background:var(--v);color:#fff}
+.faq-a{padding:0 1.5rem 1.25rem;font-size:15px;color:var(--g1);line-height:1.75}
 
-Registro rápido de movimientos
-Registra cada entrada y salida en segundos con categorías predefinidas para tu tipo de negocio.
+/* ─── CTA FINAL ─── */
+.cta-final{
+  padding:120px 2rem;
+  background:var(--k);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.cta-final::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(26,122,94,.2) 0%,transparent 65%);
+  pointer-events:none;
+}
+.cta-final-inner{max-width:700px;margin:0 auto;position:relative}
+.price-tag{
+  display:inline-flex;align-items:baseline;gap:.5rem;
+  margin-bottom:1.5rem;
+}
+.price-amount{
+  font-family:var(--serif);font-size:80px;color:#fff;line-height:1;
+}
+.price-currency{font-size:32px;color:rgba(255,255,255,.5);align-self:flex-start;margin-top:14px}
+.price-period{font-size:16px;color:rgba(255,255,255,.4);align-self:flex-end;margin-bottom:12px}
+.price-was{
+  font-size:14px;color:rgba(255,255,255,.3);
+  text-decoration:line-through;margin-bottom:.5rem;
+}
+.cta-h{
+  font-family:var(--serif);font-size:clamp(28px,4vw,48px);
+  color:#fff;line-height:1.2;margin-bottom:1rem;
+}
+.cta-h em{color:var(--vm);font-style:italic}
+.cta-sub{font-size:17px;color:rgba(255,255,255,.55);line-height:1.7;margin-bottom:3rem}
+.cta-btn-wrap{display:flex;flex-direction:column;align-items:center;gap:1rem}
+.btn-cta-big{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--n);color:#fff;
+  font-size:19px;font-weight:500;
+  padding:22px 52px;border-radius:var(--r16);
+  cursor:pointer;border:none;
+  transition:transform .2s,box-shadow .2s;
+  box-shadow:0 8px 48px rgba(232,98,42,.4);
+}
+.btn-cta-big:hover{transform:translateY(-3px);box-shadow:0 16px 64px rgba(232,98,42,.5)}
+.cta-guarantees{
+  display:flex;align-items:center;justify-content:center;
+  gap:2rem;flex-wrap:wrap;margin-top:.5rem;
+}
+.cta-g-item{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.4)}
+.cta-g-item svg{flex-shrink:0;opacity:.6}
+.trust-logos{
+  display:flex;align-items:center;justify-content:center;gap:2rem;flex-wrap:wrap;
+  margin-top:3rem;padding-top:3rem;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.trust-item{font-size:13px;color:rgba(255,255,255,.25);display:flex;align-items:center;gap:6px}
 
-Flujo diario y mensual
-Revisa cómo estuvo cada día, cada semana y cada mes. Identifica patrones y problemas antes de que duelan.
+/* ─── FOOTER ─── */
+footer{background:#141412;padding:3rem 2rem;text-align:center}
+.footer-logo{font-family:var(--serif);font-size:24px;color:#fff;margin-bottom:.5rem}
+.footer-logo span{color:var(--vm)}
+.footer-links{
+  display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;
+  margin:1rem 0;
+}
+.footer-links a{font-size:13px;color:rgba(255,255,255,.3);transition:color .2s}
+.footer-links a:hover{color:rgba(255,255,255,.6)}
+.footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
 
-Reporte mensual automático
-Al final de cada mes tienes un estado de resultados completo: margen de contribución, resultado operacional y resultado líquido.
-En vivo · Tu dashboard
-Flujo de Caja · 2025
-Enero ▾
-Saldo hoy
-$41,127
-Resultado mes
--$2,317
-Total ingresos
-$18,798
-Total salidas
-$21,115
-Ingresos operativos
-+ $18,217
-Costos variables
-- $20,076
-Costos fijos
-- $1,038
-Ingresos no operativos
-+ $24
-Resultado líquido
-- $2,317
-HISTORIA REAL
-"Mi pizzería estaba creciendo pero yo no sabía si ganaba o perdía. Cuando Juan Pablo hizo esta plantilla, por primera vez en años tuve claridad total de mis finanzas. Mi negocio empezó a crecer de verdad."
-V
-Víctor Salinas
-Dueño de Vitto & Giulio · Pizzería en São Paulo
-🍕
-El problema empezó en una pizzería
-Víctor tenía ventas constantes pero al final del mes no sabía por qué no sobraba dinero. Necesitaba ver exactamente qué pasaba con cada peso que entraba y salía.
-🇺🇸
-Juan Pablo lo resolvió desde Estados Unidos
-Estudiando en EE.UU., Juan Pablo construyó la plantilla en días. La misma que usa Víctor hoy para llevar el control exacto de su restaurante, día a día.
-📊
-Ahora la compartimos con todos
-Porque si a Víctor le cambió el negocio, puede cambiar el tuyo. A $9 USD, no hay razón para seguir operando sin control financiero.
-VISTA PREVIA REAL
-Esto es exactamente lo que recibes.
-9 hojas interconectadas. Todo automático. Todo en español.
-📋 Registros
-📊 Dashboard
-📅 Flujo Mensual
-💹 Resultados
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes pulse{
+  0%,100%{opacity:1}
+  50%{opacity:.5}
+}
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
 
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-card{display:none}
+  .solution-grid{grid-template-columns:1fr}
+  .story-inner{grid-template-columns:1fr}
+  .problem-grid,.includes-grid,.forwho-grid,.testi-grid{grid-template-columns:1fr 1fr}
+  .dash-kpis{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .hero{padding:100px 1.25rem 80px}
+  .problem,.solution,.story,.sheets,.includes,.forwho,.testimonials,.faq,.cta-final{padding:70px 1.25rem}
+  .problem-grid,.includes-grid,.forwho-grid,.testi-grid{grid-template-columns:1fr}
+  .hero-sub{font-size:16px}
+  .btn-primary,.btn-cta-big{width:100%}
+  .proof-inner{gap:1.25rem}
+  .cta-guarantees,.trust-logos{gap:1rem}
+  .sticky-inner .sticky-text{display:none}
+  .sheets-tabs{overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px}
+}
+</style>
+</head>
+<body>
 
+<!-- ═══ STICKY BAR ═══ -->
+<!-- ═══ NAVBAR ═══ -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <div class="navbar-logo">
+      <div class="navbar-logomark">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <rect x="1" y="13" width="4" height="8" rx="1.25" fill="rgba(255,255,255,.35)"/>
+          <rect x="7" y="9" width="4" height="12" rx="1.25" fill="rgba(255,255,255,.6)"/>
+          <rect x="13" y="4" width="4" height="17" rx="1.25" fill="#fff"/>
+          <path d="M1.5 9L7.5 5.5L13.5 2.5L18 1" stroke="rgba(255,255,255,.4)" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="18" cy="1" r="1.75" fill="#fff"/>
+        </svg>
+      </div>
+      <div class="navbar-brand">
+        <div class="navbar-brand-tu">Tu</div>
+        <div class="navbar-brand-main">Flujo de <span>Caja</span></div>
+      </div>
+    </div>
+    <button class="navbar-cta-top" onclick="document.getElementById('cta-anchor').scrollIntoView({behavior:'smooth'})">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v8M3 6l3.5 3.5L10 6M1 12h11" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Comprar — $9 USD
+    </button>
+  </div>
+</nav>
 
-📋 Registros — Flujo de Caja 2025
-Fecha
-Cliente/Proveedor
-Valor
-Tipo
-Banco
-Grupo
-Subgrupo
-Estado
-02/01/2025
-Ventas del día
-+ $75.13
-Entradas
-Banamex
-Ingresos operativos
-Venta contado
-Realizado
-02/01/2025
-Ventas tarjeta
-+ $80.29
-Entradas
-Banamex
-Ingresos operativos
-Venta contado
-Realizado
-02/01/2025
-Rappi / DiDi Food
-+ $157.40
-Entradas
-Banamex
-Ingresos operativos
-Venta contado
-Realizado
-02/01/2025
-Proveedor Víveres
-- $711.00
-Salidas
-Banamex
-Costos variables
-Prov. mat. prima
-Realizado
-05/01/2025
-Seguro local
-- $185.93
-Salidas
-Banamex
-Costos fijos
-Seguridad
-Realizado
-05/01/2025
-Gas y energía
-- $465.80
-Salidas
-Banamex
-Costos fijos
-Servicios
-Realizado
-06/01/2025
-Impuestos SAT
-- $2,645.41
-Salidas
-Banamex
-Costos variables
-Imp. ventas
-Pendiente
-07/01/2025
-Ventas semana
-+ $4,692.82
-Entradas
-Banamex
-Ingresos operativos
-Venta contado
-Realizado
-LO QUE RECIBES
-9 hojas. Todo lo que necesita tu negocio.
-Cada hoja tiene una función específica. Juntas forman el sistema financiero completo que tu negocio necesita.
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-inner">
+    <div>
+      <div class="sticky-text">Tu negocio, <em>bajo control.</em></div>
+      <div class="sticky-price">Pago único · Descarga inmediata</div>
+    </div>
+    <button class="sticky-cta" onclick="document.getElementById('cta-anchor').scrollIntoView({behavior:'smooth'})">
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v8M3 6l4 4 4-4M1 13h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Comprar — $9 USD
+    </button>
+  </div>
+</div>
 
-Registros
-Captura cada transacción con fecha, tipo, banco, categoría y subcategoría. Hasta 10,000 registros.
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span></span>
+        Control financiero para tu negocio
+      </div>
+      <h1>
+        Deja de adivinar<br>cuánto tiene<br><em>tu negocio.</em>
+      </h1>
+      <p class="hero-sub">
+        La plantilla de flujo de caja que controla tus entradas, salidas y saldo real — sin ser contador, sin software caro, sin complicaciones.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="document.getElementById('cta-anchor').scrollIntoView({behavior:'smooth'})">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M9 1v11M4 8l5 5 5-5M1 17h16" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Quiero mi plantilla — $9 USD
+        </button>
+        <div class="hero-guarantee">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L2 3.5v5C2 11.75 4.5 14.5 8 15.5 11.5 14.5 14 11.75 14 8.5v-5L8 1Z" stroke="currentColor" stroke-width="1.25"/><path d="M5.5 8l2 2 3-3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Pago único · Sin suscripción · Excel y Google Sheets incluidos
+        </div>
+      </div>
+    </div>
 
-Dashboard
-Vista ejecutiva con KPIs, gráficas de ingresos vs gastos y saldo en caja. Todo automático al registrar.
+    <div class="hero-card">
+      <div class="mock-badge">Tu saldo hoy</div>
+      <div class="hcard-header">
+        <div class="hcard-title">Dashboard · Enero 2025</div>
+        <div class="hcard-badge">⬤ En tiempo real</div>
+      </div>
+      <div class="hcard-big"><span>$</span>41,127</div>
+      <div class="hcard-sub">Flujo de caja acumulado · MXN</div>
+      <div class="hcard-bars" id="heroBars"></div>
+      <div class="hcard-stats">
+        <div class="hstat">
+          <div class="hstat-label">Entradas mes</div>
+          <div class="hstat-value pos">$18,798</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-label">Salidas mes</div>
+          <div class="hstat-value neg">$21,115</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-label">Costos fijos</div>
+          <div class="hstat-value" style="color:#fff">$1,038</div>
+        </div>
+        <div class="hstat">
+          <div class="hstat-label">Costos variables</div>
+          <div class="hstat-value" style="color:#fff">$20,076</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-Flujo Mensual
-Resumen de los 12 meses del año: saldo inicial, entradas, salidas y saldo final por mes.
+<!-- ═══ SOCIAL PROOF BAR ═══ -->
+<div class="proof-bar">
+  <div class="proof-inner">
+    <div class="proof-item">
+      <svg class="proof-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1L10 6H15L11 9.5L12.5 15L8 12L3.5 15L5 9.5L1 6H6L8 1Z" fill="currentColor"/></svg>
+      <span><strong>4.9/5</strong> calificación promedio</span>
+    </div>
+    <div class="proof-item">
+      <svg class="proof-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.25"/><path d="M1 7h14" stroke="currentColor" stroke-width="1.25"/></svg>
+      <span>Compatible con <strong>Excel + Google Sheets</strong></span>
+    </div>
+    <div class="proof-item">
+      <svg class="proof-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1v9M4 7l4 4 4-4M2 14h12" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+      <span><strong>Descarga inmediata</strong> · sin esperas</span>
+    </div>
+    <div class="proof-item">
+      <svg class="proof-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.25"/><path d="M8 5v4l2 2" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+      <span>Lista para usar en <strong>menos de 10 minutos</strong></span>
+    </div>
+  </div>
+</div>
 
-Flujo Diario
-Ve el movimiento de caja día a día. Identifica los días de mayor y menor flujo de tu negocio.
+<!-- ═══ PROBLEMA ═══ -->
+<section class="problem">
+  <div class="section-inner">
+    <div class="section-eyebrow">El problema real</div>
+    <h2 class="section-h reveal">Los negocios no quiebran<br>por falta de ventas.<br><em>Quiebran por falta de control.</em></h2>
+    <p class="section-sub reveal">La mayoría de los dueños de negocio venden bien, trabajan duro y aun así terminan el mes sin saber exactamente cuánto tienen. Eso tiene un nombre: falta de flujo de caja.</p>
 
-Estado de Resultados
-Margen de contribución, resultado operacional y resultado líquido. Mes a mes y anual.
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="pcard-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M11 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="pcard-h">No sabes cuánto tienes ahora mismo</div>
+        <div class="pcard-p">Tienes que llamar al banco, revisar el cajón, contar tickets. El saldo real de tu negocio es un misterio hasta que ya es tarde.</div>
+        <div class="pcard-stat">73%
+          <span>de los dueños de pyme no conocen su saldo real al día de hoy</span>
+        </div>
+      </div>
+      <div class="problem-card reveal">
+        <div class="pcard-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 18L7 10l4 4 4-6 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="pcard-h">Vendiste bien pero no sobra nada</div>
+        <div class="pcard-p">Las ventas están bien pero el dinero desaparece. No sabes si es el proveedor, los impuestos, el personal o simplemente que gastas más de lo que entra.</div>
+        <div class="pcard-stat">8 de 10
+          <span>pymes cierran antes de los 5 años por problemas de liquidez</span>
+        </div>
+      </div>
+      <div class="problem-card reveal">
+        <div class="pcard-icon">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v2M11 17v2M3 11H1M21 11h-2M5.5 5.5L4 4M18 18l-1.5-1.5M16.5 5.5L18 4M4 18l1.5-1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="11" r="4" stroke="currentColor" stroke-width="1.5"/></svg>
+        </div>
+        <div class="pcard-h">Tomas decisiones a ciegas</div>
+        <div class="pcard-p">¿Puedo contratar a alguien? ¿Puedo comprar más inventario? Sin datos, las respuestas son solo intuición. Y la intuición quiebra negocios.</div>
+        <div class="pcard-stat">$0
+          <span>es lo que cuesta saber exactamente cómo va tu negocio financieramente</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-Maestro de Categorías
-Personaliza los grupos y subgrupos de ingresos y gastos para que encajen con tu negocio exacto.
-¿ES PARA TI?
-Funciona para cualquier negocio con flujo diario.
-Si tienes entradas y salidas de dinero todos los días y necesitas saber exactamente en qué estás — esta plantilla es para ti.
-🍽️
-Restaurantes y cafeterías
-Control de ventas diarias (efectivo, tarjeta, Rappi, DiDi), proveedores de materia prima, nómina, renta y todos los costos del negocio.
-🛍️
-Tiendas de retail
-Inventario que consume caja, múltiples formas de pago, cuentas por pagar a proveedores y control del margen real por producto.
-💇
-Salones y spas
-Ingresos por servicio más productos, nómina variable por comisiones, proveedores de insumos y control de caja diaria por estilista.
-🏗️
-Constructoras y contratistas
-Proyectos por cobrar, anticipo de materiales, mano de obra y seguimiento de flujo por obra activa.
-📦
-E-commerce y tiendas online
-Múltiples plataformas (Mercado Libre, Shopify), comisiones variables, logística y control de inventario en caja.
-🎨
-Agencias y servicios
-Proyectos, anticipos, pagos parciales, freelancers y control de rentabilidad real por cliente o proyecto activo.
-LO QUE DICEN
-Dueños de negocio que ya tienen el control.
-★★★★★
-"Llevaba 3 años con mi restaurante sin saber si ganaba o perdía. Esta plantilla me dio claridad en una semana. Ahora sé exactamente cuánto tengo y cuánto puedo gastar."
-V
-Víctor S.
-Pizzería · São Paulo
-★★★★★
-"Lo mejor es que no necesitas saber de contabilidad. En 20 minutos lo tenía funcionando y ya en la primera semana vi a dónde iba mi dinero. Jamás esperé tanto valor por $9."
-M
-Mariana R.
-Salón de belleza · CDMX
-★★★★★
-"Tengo 3 tiendas y usaba hojas de papel. Ahora con esta plantilla veo todo desde una sola vista. El dashboard me ahorra horas cada semana y finalmente puedo tomar decisiones con datos."
-C
-Carlos T.
-Retail · Monterrey
-PREGUNTAS FRECUENTES
-Todo lo que necesitas saber antes de comprar.
-¿Necesito saber de contabilidad o Excel avanzado? +
-No. La plantilla está diseñada para dueños de negocio, no para contadores. Solo necesitas registrar tus movimientos y el resto lo calcula sola. Si sabes escribir en una celda de Excel, puedes usar esta plantilla.
-¿Funciona en Mac y en Windows? +
-Sí. Funciona en Microsoft Excel (Windows y Mac) y en Google Sheets (gratis, desde cualquier dispositivo). Si no tienes Excel, puedes usarla completamente gratis con Google Sheets.
-¿Puedo usarla con pesos mexicanos, colombianos o cualquier otra moneda? +
-Sí. La plantilla es compatible con cualquier moneda. Solo defines la moneda con la que trabajas y registras los números. Funciona igual para MXN, COP, ARS, USD o cualquier otra.
-¿Cómo recibo la plantilla después de pagar? +
-Inmediatamente. En cuanto confirmes el pago recibes un email con el link de descarga. El archivo es tuyo para siempre — sin suscripciones, sin renovaciones.
-¿Cuántas cuentas bancarias puedo manejar? +
-La plantilla está optimizada para una cuenta bancaria principal, que cubre la mayoría de los negocios pequeños y medianos. Puedes registrar transferencias entre cuentas como movimientos internos.
-¿Puedo personalizar las categorías para mi tipo de negocio? +
-Sí. La hoja "Maestro de Categorías" te permite definir tus propios grupos y subgrupos de ingresos y gastos. Las categorías predefinidas ya cubren restaurantes, retail, servicios y más.
-¿Qué pasa si tengo dudas o necesito ayuda? +
-Incluimos instrucciones dentro de la propia plantilla. Si tienes alguna duda adicional, puedes contactarnos directamente por WhatsApp o por email y te respondemos en menos de 24 horas.
-Precio regular: $29 USD
-USD
-9
-pago único
-Tu negocio merece claridad financiera.
-Por menos que un café al día por una semana, tienes control total de cada peso que entra y sale de tu negocio. Para siempre.
+<!-- ═══ SOLUCIÓN ═══ -->
+<section class="solution">
+  <div class="section-inner">
+    <div class="solution-grid">
+      <div>
+        <div class="section-eyebrow">La solución</div>
+        <h2 class="section-h reveal">Tu Flujo de Caja.<br><em>Todo claro,<br>siempre.</em></h2>
+        <p class="section-sub reveal" style="margin-bottom:0">Una plantilla diseñada por dueños de negocio para dueños de negocio. Sin tecnicismos. Sin curva de aprendizaje. Lista en 10 minutos.</p>
+        <div class="solution-features">
+          <div class="sfeat reveal">
+            <div class="sfeat-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="10" width="3" height="8" rx="1" fill="currentColor" opacity=".4"/><rect x="7" y="6" width="3" height="12" rx="1" fill="currentColor" opacity=".65"/><rect x="12" y="2" width="3" height="16" rx="1" fill="currentColor"/><path d="M2 7l5-3 5-2 5-1" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="sfeat-h">Dashboard en tiempo real</div>
+              <div class="sfeat-p">Ve tu saldo actual, ingresos y gastos del mes de un vistazo. Sin fórmulas manuales — todo automático.</div>
+            </div>
+          </div>
+          <div class="sfeat reveal">
+            <div class="sfeat-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="2" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M6 10h8M6 7h8M6 13h5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="sfeat-h">Registro rápido de movimientos</div>
+              <div class="sfeat-p">Registra cada entrada y salida en segundos con categorías predefinidas para tu tipo de negocio.</div>
+            </div>
+          </div>
+          <div class="sfeat reveal">
+            <div class="sfeat-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2L3 5v6c0 4 3 7 7 8 4-1 7-4 7-8V5L10 2Z" stroke="currentColor" stroke-width="1.5"/><path d="M7 10l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="sfeat-h">Flujo diario y mensual</div>
+              <div class="sfeat-p">Revisa cómo estuvo cada día, cada semana y cada mes. Identifica patrones y problemas antes de que duelan.</div>
+            </div>
+          </div>
+          <div class="sfeat reveal">
+            <div class="sfeat-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M10 6v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            </div>
+            <div>
+              <div class="sfeat-h">Reporte mensual automático</div>
+              <div class="sfeat-p">Al final de cada mes tienes un estado de resultados completo: margen de contribución, resultado operacional y resultado líquido.</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-Descargar ahora — $9 USD
+      <div class="dashboard-mock reveal">
+        <div class="mock-badge">En vivo · Tu dashboard</div>
+        <div class="mock-topbar">
+          <div class="mock-title">Flujo de Caja · 2025</div>
+          <div class="mock-year">Enero ▾</div>
+        </div>
+        <div class="mock-cards">
+          <div class="mcard"><div class="mcard-l">Saldo hoy</div><div class="mcard-v g">$41,127</div></div>
+          <div class="mcard"><div class="mcard-l">Resultado mes</div><div class="mcard-v r">-$2,317</div></div>
+          <div class="mcard"><div class="mcard-l">Total ingresos</div><div class="mcard-v w">$18,798</div></div>
+          <div class="mcard"><div class="mcard-l">Total salidas</div><div class="mcard-v r">$21,115</div></div>
+        </div>
+        <div class="mock-chart" id="solutionChart"></div>
+        <div class="mock-table">
+          <div class="mtrow"><span class="mtrow-cat">Ingresos operativos</span><span class="mtrow-val pos">+ $18,217</span></div>
+          <div class="mtrow"><span class="mtrow-cat">Costos variables</span><span class="mtrow-val neg">- $20,076</span></div>
+          <div class="mtrow"><span class="mtrow-cat">Costos fijos</span><span class="mtrow-val neg">- $1,038</span></div>
+          <div class="mtrow"><span class="mtrow-cat">Ingresos no operativos</span><span class="mtrow-val pos">+ $24</span></div>
+          <div class="mtrow"><span class="mtrow-cat" style="color:rgba(255,255,255,.7);font-weight:500">Resultado líquido</span><span class="mtrow-val neg" style="font-size:14px">- $2,317</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-Pago seguro
+<!-- ═══ HISTORIA ═══ -->
+<section class="story">
+  <div class="story-inner section-inner">
+    <div>
+      <div class="section-eyebrow" style="background:rgba(75,201,154,.1);color:var(--vm)">Historia real</div>
+      <div class="story-quote reveal">
+        "Mi pizzería estaba creciendo pero <em>yo no sabía si ganaba o perdía.</em> Cuando Juan Pablo hizo esta plantilla, por primera vez en años tuve claridad total de mis finanzas. Mi negocio empezó a crecer de verdad."
+      </div>
+      <div class="story-author">
+        <div class="story-avatar">V</div>
+        <div>
+          <div class="story-author-name">Víctor Salinas</div>
+          <div class="story-author-role">Dueño de Vitto & Giulio · Pizzería en São Paulo</div>
+        </div>
+      </div>
+    </div>
+    <div class="story-cards">
+      <div class="story-card reveal">
+        <div class="story-card-icon">🍕</div>
+        <div class="story-card-h">El problema empezó en una pizzería</div>
+        <div class="story-card-p">Víctor tenía ventas constantes pero al final del mes no sabía por qué no sobraba dinero. Necesitaba ver exactamente qué pasaba con cada peso que entraba y salía.</div>
+      </div>
+      <div class="story-card reveal">
+        <div class="story-card-icon">🇺🇸</div>
+        <div class="story-card-h">Juan Pablo lo resolvió desde Estados Unidos</div>
+        <div class="story-card-p">Estudiando en EE.UU., Juan Pablo construyó la plantilla en días. La misma que usa Víctor hoy para llevar el control exacto de su restaurante, día a día.</div>
+      </div>
+      <div class="story-card reveal">
+        <div class="story-card-icon">📊</div>
+        <div class="story-card-h">Ahora la compartimos con todos</div>
+        <div class="story-card-p">Porque si a Víctor le cambió el negocio, puede cambiar el tuyo. A $9 USD, no hay razón para seguir operando sin control financiero.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-Descarga inmediata
+<!-- ═══ SHEETS PREVIEW ═══ -->
+<section class="sheets">
+  <div class="section-inner">
+    <div class="section-eyebrow">Vista previa real</div>
+    <h2 class="section-h reveal">Esto es exactamente<br>lo que <em>recibes.</em></h2>
+    <p class="section-sub reveal">9 hojas interconectadas. Todo automático. Todo en español.</p>
 
-Sin suscripción
+    <div class="sheets-tabs">
+      <button class="stab active" onclick="showTab('registros',this)">📋 Registros</button>
+      <button class="stab" onclick="showTab('dashboard',this)">📊 Dashboard</button>
+      <button class="stab" onclick="showTab('mensual',this)">📅 Flujo Mensual</button>
+      <button class="stab" onclick="showTab('resultados',this)">💹 Resultados</button>
+    </div>
 
-Excel + Google Sheets
+    <div class="sheet-mockup">
+      <div class="sheet-toolbar">
+        <div class="sheet-dots">
+          <div class="sdot" style="background:#FF5F57"></div>
+          <div class="sdot" style="background:#FFBD2E"></div>
+          <div class="sdot" style="background:#28C840"></div>
+        </div>
+        <div class="sheet-name" id="sheetName">📋 Registros — Flujo de Caja 2025</div>
+      </div>
 
-+4.9 calificación promedio
+      <!-- REGISTROS -->
+      <div id="tab-registros" class="sheet-panel active">
+        <div class="sheet-body">
+          <table class="sheet-table">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Cliente/Proveedor</th>
+                <th>Valor</th>
+                <th>Tipo</th>
+                <th>Banco</th>
+                <th>Grupo</th>
+                <th>Subgrupo</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>02/01/2025</td><td>Ventas del día</td><td class="td-in">+ $75.13</td><td>Entradas</td><td>Banamex</td><td>Ingresos operativos</td><td>Venta contado</td><td><span class="td-badge done">Realizado</span></td></tr>
+              <tr><td>02/01/2025</td><td>Ventas tarjeta</td><td class="td-in">+ $80.29</td><td>Entradas</td><td>Banamex</td><td>Ingresos operativos</td><td>Venta contado</td><td><span class="td-badge done">Realizado</span></td></tr>
+              <tr><td>02/01/2025</td><td>Rappi / DiDi Food</td><td class="td-in">+ $157.40</td><td>Entradas</td><td>Banamex</td><td>Ingresos operativos</td><td>Venta contado</td><td><span class="td-badge done">Realizado</span></td></tr>
+              <tr><td>02/01/2025</td><td>Proveedor Víveres</td><td class="td-out">- $711.00</td><td>Salidas</td><td>Banamex</td><td>Costos variables</td><td>Prov. mat. prima</td><td><span class="td-badge done">Realizado</span></td></tr>
+              <tr><td>05/01/2025</td><td>Seguro local</td><td class="td-out">- $185.93</td><td>Salidas</td><td>Banamex</td><td>Costos fijos</td><td>Seguridad</td><td><span class="td-badge done">Realizado</span></td></tr>
+              <tr><td>05/01/2025</td><td>Gas y energía</td><td class="td-out">- $465.80</td><td>Salidas</td><td>Banamex</td><td>Costos fijos</td><td>Servicios</td><td><span class="td-badge done">Realizado</span></td></tr>
+              <tr><td>06/01/2025</td><td>Impuestos SAT</td><td class="td-out">- $2,645.41</td><td>Salidas</td><td>Banamex</td><td>Costos variables</td><td>Imp. ventas</td><td><span class="td-badge pend">Pendiente</span></td></tr>
+              <tr><td>07/01/2025</td><td>Ventas semana</td><td class="td-in">+ $4,692.82</td><td>Entradas</td><td>Banamex</td><td>Ingresos operativos</td><td>Venta contado</td><td><span class="td-badge done">Realizado</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-Pago 100% seguro
+      <!-- DASHBOARD -->
+      <div id="tab-dashboard" class="sheet-panel">
+        <div class="dash-panel">
+          <div class="dash-kpis">
+            <div class="dkpi"><div class="dkpi-l">Ingresos mes</div><div class="dkpi-v" style="color:#4BC99A">$18,798</div></div>
+            <div class="dkpi"><div class="dkpi-l">Gastos mes</div><div class="dkpi-v" style="color:#FF8080">$21,115</div></div>
+            <div class="dkpi"><div class="dkpi-l">Resultado</div><div class="dkpi-v" style="color:#FF8080">-$2,317</div></div>
+            <div class="dkpi"><div class="dkpi-l">Saldo en caja</div><div class="dkpi-v" style="color:#fff">$41,127</div></div>
+          </div>
+          <div class="dash-chart">
+            <div class="dash-chart-title">Ingresos vs Gastos · Enero 2025</div>
+            <div class="dash-bars" id="dashChartBars"></div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+            <div class="dkpi"><div class="dkpi-l">Costos variables</div><div class="dkpi-v" style="color:#fff;font-size:17px">$20,076</div></div>
+            <div class="dkpi"><div class="dkpi-l">Costos fijos</div><div class="dkpi-v" style="color:#fff;font-size:17px">$1,038</div></div>
+          </div>
+        </div>
+      </div>
 
-Soporte en español 🇲🇽 🇨🇴 🇦🇷 🇵🇪 🇨🇱 · LATAM + USA
-Tu Flujo de Caja
-Términos de uso
-Política de privacidad
-Contacto
-Instagram
-TikTok
-© 2025 Tu Flujo de Caja · tuflujodecaja.com · Todos los derechos reservados.
+      <!-- MENSUAL -->
+      <div id="tab-mensual" class="sheet-panel">
+        <div class="sheet-body">
+          <table class="sheet-table">
+            <thead>
+              <tr><th>Mes</th><th>Saldo Inicial</th><th>Entradas</th><th>Salidas</th><th>Saldo Final</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Enero</td><td>$13,365</td><td class="td-in">+ $18,798</td><td class="td-out">- $21,115</td><td style="color:#fff;font-weight:500">$11,048</td></tr>
+              <tr><td style="color:rgba(255,255,255,.3)">Febrero</td><td style="color:rgba(255,255,255,.2)">$11,048</td><td style="color:rgba(255,255,255,.2)">—</td><td style="color:rgba(255,255,255,.2)">—</td><td style="color:rgba(255,255,255,.2)">$11,048</td></tr>
+              <tr><td style="color:rgba(255,255,255,.3)">Marzo</td><td style="color:rgba(255,255,255,.2)">$11,048</td><td style="color:rgba(255,255,255,.2)">—</td><td style="color:rgba(255,255,255,.2)">—</td><td style="color:rgba(255,255,255,.2)">$11,048</td></tr>
+              <tr><td style="color:rgba(255,255,255,.3)">Abril</td><td style="color:rgba(255,255,255,.2)">$11,048</td><td style="color:rgba(255,255,255,.2)">—</td><td style="color:rgba(255,255,255,.2)">—</td><td style="color:rgba(255,255,255,.2)">$11,048</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- RESULTADOS -->
+      <div id="tab-resultados" class="sheet-panel">
+        <div class="sheet-body">
+          <table class="sheet-table">
+            <thead>
+              <tr><th>Categoría</th><th>Enero</th><th>% AV</th></tr>
+            </thead>
+            <tbody>
+              <tr><td style="color:rgba(255,255,255,.7);font-weight:500">Ingresos Operativos</td><td class="td-in">$18,774</td><td style="color:rgba(255,255,255,.4)">100%</td></tr>
+              <tr><td>— Venta de producto contado</td><td class="td-in">$18,217</td><td style="color:rgba(255,255,255,.3)">97.0%</td></tr>
+              <tr><td>— Venta de servicios contado</td><td class="td-in">$556</td><td style="color:rgba(255,255,255,.3)">3.0%</td></tr>
+              <tr><td style="color:rgba(255,255,255,.7);font-weight:500">Costos Variables</td><td class="td-out">$20,076</td><td style="color:rgba(255,255,255,.4)">106.9%</td></tr>
+              <tr><td>— Proveedor materia prima</td><td class="td-out">$8,140</td><td style="color:rgba(255,255,255,.3)">43.4%</td></tr>
+              <tr><td>— Impuestos sobre ventas</td><td class="td-out">$2,648</td><td style="color:rgba(255,255,255,.3)">14.1%</td></tr>
+              <tr><td style="color:rgba(255,255,255,.7);font-weight:500">Margen de Contribución</td><td style="color:#FF8080;font-weight:500">-$1,302</td><td style="color:rgba(255,255,255,.3)">-6.9%</td></tr>
+              <tr><td style="color:rgba(255,255,255,.7);font-weight:500">Costos Fijos</td><td class="td-out">$1,038</td><td style="color:rgba(255,255,255,.3)">5.5%</td></tr>
+              <tr><td style="color:#fff;font-weight:600;font-size:13px">Resultado Líquido</td><td style="color:#FF8080;font-weight:600;font-size:13px">-$2,317</td><td style="color:rgba(255,255,255,.3)">-12.3%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ QUÉ INCLUYE ═══ -->
+<section class="includes">
+  <div class="section-inner">
+    <div class="section-eyebrow">Lo que recibes</div>
+    <h2 class="section-h reveal">9 hojas. Todo lo que<br><em>necesita tu negocio.</em></h2>
+    <p class="section-sub reveal">Cada hoja tiene una función específica. Juntas forman el sistema financiero completo que tu negocio necesita.</p>
+
+    <div class="includes-grid">
+      <div class="inc-card reveal">
+        <div class="inc-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M7 8h8M7 11h8M7 14h5" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg></div>
+        <div class="inc-h">Registros</div>
+        <div class="inc-p">Captura cada transacción con fecha, tipo, banco, categoría y subcategoría. Hasta 10,000 registros.</div>
+      </div>
+      <div class="inc-card reveal">
+        <div class="inc-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="2" y="12" width="4" height="8" rx="1" fill="currentColor" opacity=".4"/><rect x="8" y="8" width="4" height="12" rx="1" fill="currentColor" opacity=".65"/><rect x="14" y="3" width="4" height="17" rx="1" fill="currentColor"/></svg></div>
+        <div class="inc-h">Dashboard</div>
+        <div class="inc-p">Vista ejecutiva con KPIs, gráficas de ingresos vs gastos y saldo en caja. Todo automático al registrar.</div>
+      </div>
+      <div class="inc-card reveal">
+        <div class="inc-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 9h16M9 9v10" stroke="currentColor" stroke-width="1.25"/></svg></div>
+        <div class="inc-h">Flujo Mensual</div>
+        <div class="inc-p">Resumen de los 12 meses del año: saldo inicial, entradas, salidas y saldo final por mes.</div>
+      </div>
+      <div class="inc-card reveal">
+        <div class="inc-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="1.5"/><path d="M11 7v5l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+        <div class="inc-h">Flujo Diario</div>
+        <div class="inc-p">Ve el movimiento de caja día a día. Identifica los días de mayor y menor flujo de tu negocio.</div>
+      </div>
+      <div class="inc-card reveal">
+        <div class="inc-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M3 18L7 10l4 5 4-7 4 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="inc-h">Estado de Resultados</div>
+        <div class="inc-p">Margen de contribución, resultado operacional y resultado líquido. Mes a mes y anual.</div>
+      </div>
+      <div class="inc-card reveal">
+        <div class="inc-icon"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3L4 6.5v6c0 3.75 3 6.5 7 7 4-.5 7-3.25 7-7v-6L11 3Z" stroke="currentColor" stroke-width="1.5"/><path d="M8 11l2 2 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="inc-h">Maestro de Categorías</div>
+        <div class="inc-p">Personaliza los grupos y subgrupos de ingresos y gastos para que encajen con tu negocio exacto.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PARA QUIÉN ═══ -->
+<section class="forwho">
+  <div class="section-inner">
+    <div class="section-eyebrow">¿Es para ti?</div>
+    <h2 class="section-h reveal">Funciona para cualquier<br><em>negocio con flujo diario.</em></h2>
+    <p class="section-sub reveal">Si tienes entradas y salidas de dinero todos los días y necesitas saber exactamente en qué estás — esta plantilla es para ti.</p>
+
+    <div class="forwho-grid">
+      <div class="fw-card reveal">
+        <span class="fw-emoji">🍽️</span>
+        <div class="fw-h">Restaurantes y cafeterías</div>
+        <div class="fw-p">Control de ventas diarias (efectivo, tarjeta, Rappi, DiDi), proveedores de materia prima, nómina, renta y todos los costos del negocio.</div>
+      </div>
+      <div class="fw-card reveal">
+        <span class="fw-emoji">🛍️</span>
+        <div class="fw-h">Tiendas de retail</div>
+        <div class="fw-p">Inventario que consume caja, múltiples formas de pago, cuentas por pagar a proveedores y control del margen real por producto.</div>
+      </div>
+      <div class="fw-card reveal">
+        <span class="fw-emoji">💇</span>
+        <div class="fw-h">Salones y spas</div>
+        <div class="fw-p">Ingresos por servicio más productos, nómina variable por comisiones, proveedores de insumos y control de caja diaria por estilista.</div>
+      </div>
+      <div class="fw-card reveal">
+        <span class="fw-emoji">🏗️</span>
+        <div class="fw-h">Constructoras y contratistas</div>
+        <div class="fw-p">Proyectos por cobrar, anticipo de materiales, mano de obra y seguimiento de flujo por obra activa.</div>
+      </div>
+      <div class="fw-card reveal">
+        <span class="fw-emoji">📦</span>
+        <div class="fw-h">E-commerce y tiendas online</div>
+        <div class="fw-p">Múltiples plataformas (Mercado Libre, Shopify), comisiones variables, logística y control de inventario en caja.</div>
+      </div>
+      <div class="fw-card reveal">
+        <span class="fw-emoji">🎨</span>
+        <div class="fw-h">Agencias y servicios</div>
+        <div class="fw-p">Proyectos, anticipos, pagos parciales, freelancers y control de rentabilidad real por cliente o proyecto activo.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIOS ═══ -->
+<section class="testimonials">
+  <div class="section-inner">
+    <div class="section-eyebrow" style="background:rgba(75,201,154,.1);color:var(--vm)">Lo que dicen</div>
+    <h2 class="section-h reveal" style="color:#fff">Dueños de negocio que ya<br><em>tienen el control.</em></h2>
+
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Llevaba 3 años con mi restaurante sin saber si ganaba o perdía. Esta plantilla me dio claridad en una semana. Ahora sé exactamente cuánto tengo y cuánto puedo gastar."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:var(--v)">V</div>
+          <div>
+            <div class="testi-name">Víctor S.</div>
+            <div class="testi-biz">Pizzería · São Paulo</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Lo mejor es que no necesitas saber de contabilidad. En 20 minutos lo tenía funcionando y ya en la primera semana vi a dónde iba mi dinero. Jamás esperé tanto valor por $9."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#5C4DB1">M</div>
+          <div>
+            <div class="testi-name">Mariana R.</div>
+            <div class="testi-biz">Salón de belleza · CDMX</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text">"Tengo 3 tiendas y usaba hojas de papel. Ahora con esta plantilla veo todo desde una sola vista. El dashboard me ahorra horas cada semana y finalmente puedo tomar decisiones con datos."</div>
+        <div class="testi-author">
+          <div class="testi-avatar" style="background:#B14D3A">C</div>
+          <div>
+            <div class="testi-name">Carlos T.</div>
+            <div class="testi-biz">Retail · Monterrey</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faq">
+  <div class="section-inner">
+    <div class="section-eyebrow">Preguntas frecuentes</div>
+    <h2 class="section-h reveal" style="text-align:center">Todo lo que necesitas<br><em>saber antes de comprar.</em></h2>
+
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary class="faq-q">
+          ¿Necesito saber de contabilidad o Excel avanzado?
+          <div class="faq-icon">+</div>
+        </summary>
+        <div class="faq-a">No. La plantilla está diseñada para dueños de negocio, no para contadores. Solo necesitas registrar tus movimientos y el resto lo calcula sola. Si sabes escribir en una celda de Excel, puedes usar esta plantilla.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          ¿Funciona en Mac y en Windows?
+          <div class="faq-icon">+</div>
+        </summary>
+        <div class="faq-a">Sí. Funciona en Microsoft Excel (Windows y Mac) y en Google Sheets (gratis, desde cualquier dispositivo). Si no tienes Excel, puedes usarla completamente gratis con Google Sheets.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          ¿Puedo usarla con pesos mexicanos, colombianos o cualquier otra moneda?
+          <div class="faq-icon">+</div>
+        </summary>
+        <div class="faq-a">Sí. La plantilla es compatible con cualquier moneda. Solo defines la moneda con la que trabajas y registras los números. Funciona igual para MXN, COP, ARS, USD o cualquier otra.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          ¿Cómo recibo la plantilla después de pagar?
+          <div class="faq-icon">+</div>
+        </summary>
+        <div class="faq-a">Inmediatamente. En cuanto confirmes el pago recibes un email con el link de descarga. El archivo es tuyo para siempre — sin suscripciones, sin renovaciones.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          ¿Cuántas cuentas bancarias puedo manejar?
+          <div class="faq-icon">+</div>
+        </summary>
+        <div class="faq-a">La plantilla está optimizada para una cuenta bancaria principal, que cubre la mayoría de los negocios pequeños y medianos. Puedes registrar transferencias entre cuentas como movimientos internos.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          ¿Puedo personalizar las categorías para mi tipo de negocio?
+          <div class="faq-icon">+</div>
+        </summary>
+        <div class="faq-a">Sí. La hoja "Maestro de Categorías" te permite definir tus propios grupos y subgrupos de ingresos y gastos. Las categorías predefinidas ya cubren restaurantes, retail, servicios y más.</div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q">
+          ¿Qué pasa si tengo dudas o necesito ayuda?
+          <div class="faq-icon">+</div>
+        </summary>
+        <div class="faq-a">Incluimos instrucciones dentro de la propia plantilla. Si tienes alguna duda adicional, puedes contactarnos directamente por WhatsApp o por email y te respondemos en menos de 24 horas.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA FINAL ═══ -->
+<section class="cta-final" id="cta-anchor">
+  <div class="cta-final-inner">
+    <div class="price-was">Precio regular: $29 USD</div>
+    <div class="price-tag">
+      <div class="price-currency">USD</div>
+      <div class="price-amount">9</div>
+      <div class="price-period">pago único</div>
+    </div>
+    <h2 class="cta-h reveal">Tu negocio merece<br><em>claridad financiera.</em></h2>
+    <p class="cta-sub reveal">Por menos que un café al día por una semana, tienes control total de cada peso que entra y sale de tu negocio. Para siempre.</p>
+
+    <div class="cta-btn-wrap">
+      <button class="btn-cta-big">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 2v12M6 10l5 5 5-5M2 19h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Descargar ahora — $9 USD
+      </button>
+      <div class="cta-guarantees">
+        <div class="cta-g-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L1 3.5v5C1 11.5 3.5 13.5 7 14.5 10.5 13.5 13 11.5 13 8.5v-5L7 1Z" stroke="currentColor" stroke-width="1.25"/><path d="M4.5 7l2 2 3-3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Pago seguro
+        </div>
+        <div class="cta-g-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1v9M3 7l4 4 4-4M1 13h12" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+          Descarga inmediata
+        </div>
+        <div class="cta-g-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.25"/><path d="M7 4.5v3.5M9.5 7H7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/></svg>
+          Sin suscripción
+        </div>
+        <div class="cta-g-item">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><rect x="1" y="3" width="12" height="8" rx="1.5" stroke="currentColor" stroke-width="1.25"/><path d="M1 7h12" stroke="currentColor" stroke-width="1.25"/><circle cx="3.5" cy="9.5" r=".75" fill="currentColor"/></svg>
+          Excel + Google Sheets
+        </div>
+      </div>
+    </div>
+
+    <div class="trust-logos">
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L8.5 5H13L9.5 7.5 11 12 7 9.5 3 12 4.5 7.5 1 5H5.5L7 1Z" fill="currentColor"/></svg>
+        +4.9 calificación promedio
+      </div>
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1L2 3.5v4C2 10.5 4 13 7 13.5 10 13 12 10.5 12 7.5v-4L7 1Z" stroke="currentColor" stroke-width="1.25"/></svg>
+        Pago 100% seguro
+      </div>
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.25"/><path d="M5 7l2 2 4-4" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Soporte en español
+      </div>
+      <div class="trust-item">
+        🇲🇽 🇨🇴 🇦🇷 🇵🇪 🇨🇱 · LATAM + USA
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">Tu Flujo de <span>Caja</span></div>
+  <div class="footer-links">
+    <a href="#">Términos de uso</a>
+    <a href="#">Política de privacidad</a>
+    <a href="#">Contacto</a>
+    <a href="#">Instagram</a>
+    <a href="#">TikTok</a>
+  </div>
+  <div class="footer-copy">© 2025 Tu Flujo de Caja · tuflujodecaja.com · Todos los derechos reservados.</div>
+</footer>
+
+<script>
+/* ─ Hero bars ─ */
+const heroData=[45,70,55,90,65,80,50,95,60,75,85,40];
+const heroColors=['rgba(75,201,154,.3)','rgba(75,201,154,.4)','rgba(75,201,154,.35)','rgba(75,201,154,.55)','rgba(75,201,154,.45)','rgba(75,201,154,.5)','rgba(75,201,154,.3)','rgba(75,201,154,.65)','rgba(75,201,154,.4)','rgba(75,201,154,.5)','rgba(75,201,154,.6)','rgba(75,201,154,.25)'];
+const months=['E','F','M','A','M','J','J','A','S','O','N','D'];
+const heroEl=document.getElementById('heroBars');
+if(heroEl){
+  heroData.forEach((h,i)=>{
+    const b=document.createElement('div');
+    b.className='hbar';
+    b.style.cssText=`height:${h}%;background:${heroColors[i]};position:relative`;
+    const l=document.createElement('div');
+    l.className='hbar-label';l.textContent=months[i];
+    b.appendChild(l);heroEl.appendChild(b);
+  });
+}
+
+/* ─ Solution chart ─ */
+const solEl=document.getElementById('solutionChart');
+const weekData=[
+  {i:418,o:711},{i:0,o:1543},{i:531,o:3862},{i:4692,o:864},
+  {i:1440,o:824},{i:1244,o:2390},{i:0,o:0},{i:4893,o:4963},
+  {i:435,o:1391},{i:5143,o:4565}
+];
+if(solEl){
+  const max=Math.max(...weekData.map(d=>Math.max(d.i,d.o)));
+  weekData.forEach(d=>{
+    const wrap=document.createElement('div');
+    wrap.style.cssText='display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;height:100%';
+    const bi=document.createElement('div');
+    bi.className='mcbar in';bi.style.height=`${(d.i/max)*85}%`;
+    const bo=document.createElement('div');
+    bo.className='mcbar out';bo.style.height=`${(d.o/max)*85}%`;
+    wrap.appendChild(bi);wrap.appendChild(bo);
+    solEl.appendChild(wrap);
+  });
+}
+
+/* ─ Dashboard chart ─ */
+const dashEl=document.getElementById('dashChartBars');
+if(dashEl){
+  const mths=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const vals=[18798,0,0,0,0,0,0,0,0,0,0,0];
+  const maxV=20000;
+  mths.forEach((m,i)=>{
+    const wrap=document.createElement('div');
+    wrap.className='dbar-wrap';
+    const bar=document.createElement('div');
+    bar.className='dbar';
+    const h=vals[i]?(vals[i]/maxV)*100:4;
+    bar.style.cssText=`height:${h}%;background:${vals[i]?'rgba(75,201,154,.4)':'rgba(255,255,255,.04)'};`;
+    const lbl=document.createElement('div');
+    lbl.className='dbar-lbl';lbl.textContent=m;
+    wrap.appendChild(bar);wrap.appendChild(lbl);
+    dashEl.appendChild(wrap);
+  });
+}
+
+/* ─ Sticky bar ─ */
+const stickyBar=document.getElementById('stickyBar');
+const hero=document.querySelector('.hero');
+const obs=new IntersectionObserver(([e])=>{
+  stickyBar.classList.toggle('visible',!e.isIntersecting);
+},{threshold:0.1});
+if(hero)obs.observe(hero);
+
+/* ─ Scroll reveal ─ */
+const revObs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target)}});
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>{revObs.observe(el)});
+
+/* ─ Tabs ─ */
+function showTab(id,btn){
+  document.querySelectorAll('.sheet-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+  const names={registros:'📋 Registros — Flujo de Caja 2025',dashboard:'📊 Dashboard — Flujo de Caja 2025',mensual:'📅 Flujo Mensual — 2025',resultados:'💹 Estado de Resultados — 2025'};
+  document.getElementById('sheetName').textContent=names[id]||'Flujo de Caja 2025';
+}
+</script>
+</body>
+</html>
