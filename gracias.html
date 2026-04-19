@@ -23,7 +23,7 @@ body{
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   padding:2rem;
-  position:relative;overflow:hidden;
+  position:relative;overflow-x:hidden;
 }
 body::before{
   content:'';position:absolute;inset:0;
@@ -236,9 +236,9 @@ h1 em{color:var(--vm);font-style:italic}
   </a>
 
   <p class="alt-link">
-    ¿No descarga automáticamente?
+    ¿Problemas al descargar?
     <a href="https://drive.google.com/file/d/1EeujPkaEq1UQ9ESZODAIVxcKIS9BL5tA/view" target="_blank">
-      Haz click aquí para abrirlo en Google Drive
+      Ábrelo directo en Google Drive
     </a>
   </p>
 
@@ -307,16 +307,6 @@ for(let i = 0; i < 60; i++){
   `;
   container.appendChild(el);
 }
-
-// Auto-trigger download after 1.5s
-setTimeout(()=>{
-  const link = document.createElement('a');
-  link.href = 'https://drive.google.com/uc?export=download&id=1EeujPkaEq1UQ9ESZODAIVxcKIS9BL5tA';
-  link.download = 'TuFlujoDeCaja.xlsx';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}, 1500);
 </script>
 </body>
 </html>
